@@ -347,8 +347,10 @@
 		this.formBuilderCheckboxClass="checkbox";
 		
 		// gallery/index.cfm
+		this.galleryImageStyles=false;
 		this.galleryWrapperClass="";
-		this.galleryULClass="clearfix";
+		this.galleryULClass="clearfix grid-block-md-3";
+		this.galleryLIClass="grid-block-item";
 		this.galleryThumbnailClass="thumbnail";
 		
 		// nav/calendarNav/index.cfm

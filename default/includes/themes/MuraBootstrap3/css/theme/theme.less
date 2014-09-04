@@ -5,6 +5,9 @@
 // --------------------------------------------------
 
 // Common styles
+.clear{
+	clear: both;
+}
 .btn-default,
 .btn-primary,
 .btn-success,
@@ -776,6 +779,17 @@ section {
 	min-height: 20px;
 }
 
+// GALLERY
+
+.mura-gallery{
+	ul{
+		li{
+			padding: 10px;
+			margin: 0;
+		}
+	}
+}
+
 // SEARCH
 
 .navbar-form .form-control {
@@ -915,6 +929,61 @@ section {
 		margin: 5px 0;
 	}
 }
+
+// GRID BLOCKS
+ 
+@grid-gutter-width: 20px;
+ 
+[class*="grid-block-"] {
+	display: block;
+	margin: -(@grid-gutter-width/2);
+	padding: 0;
+	  
+	&:after { .clear; }
+}
+ 
+// mixin
+.grid-block-item {
+	display: inline;
+	margin: 0;
+	padding: (@grid-gutter-width/2);
+	height: auto;
+	float: left;
+	list-style: none;
+}
+ 
+// mixin
+.grid-block (@per-row) {
+	& > .grid-block-item {
+		width: (100%/@per-row);
+		
+		@nth-equation: ~"@{per-row}n+1";
+		// don't clear the columns
+		&:nth-of-type(n) { clear: none; }
+		// do clear the row
+		&:nth-of-type(@{nth-equation}) { clear: both; }
+	}
+}
+ 
+.grid-blocks(@size) {
+	.grid-block-@{size}-1  { .grid-block(1);  }
+	.grid-block-@{size}-2  { .grid-block(2);  }
+	.grid-block-@{size}-3  { .grid-block(3);  }
+	.grid-block-@{size}-4  { .grid-block(4);  }
+	.grid-block-@{size}-5  { .grid-block(5);  }
+	.grid-block-@{size}-6  { .grid-block(6);  }
+	.grid-block-@{size}-7  { .grid-block(7);  }
+	.grid-block-@{size}-8  { .grid-block(8);  }
+	.grid-block-@{size}-9  { .grid-block(9);  }
+	.grid-block-@{size}-10 { .grid-block(10); }
+	.grid-block-@{size}-11 { .grid-block(11); }
+	.grid-block-@{size}-12 { .grid-block(12); }
+}
+ 
+.grid-blocks(xs);
+@media (min-width: 768px) { .grid-blocks(sm) }
+@media (min-width: 992px) { .grid-blocks(md) }
+@media (min-width: 1200px) { .grid-blocks(lg) }
 
 
 // Prettify
