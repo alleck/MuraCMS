@@ -301,8 +301,40 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		<cftry>
 			<cfset application["#variables.i#"]=application.serviceFactory.getBean("#variables.i#") />
 			<cfcatch>
-				<cfdump var="#variables.i#">
-				<cfdump var="#cfcatch#" abort="true">
+				<style type="text/css">
+				.errorBox {
+					margin: 10px auto 10px auto;
+					width: 90%;
+				}
+				
+				.errorBox h1 {
+					font-size: 100px;
+					margin: 5px 0px 5px 0px;
+				}
+				
+				</style>
+				<div class="errorBox">
+					<img src="../../admin/assets/ico/apple-touch-icon-144-precomposed.png" />
+					<h1>500 Error</h1>
+					<h2><cfoutput>#cfcatch.message#</cfoutput><br /></h2>
+					<pre><cfoutput>#cfcatch.StackTrace#</cfoutput></pre><br />
+					<strong><cfoutput>Error Type: #cfcatch.type#</cfoutput></strong><br />
+					<strong><cfoutput>Variable Struct: #variables.i#</cfoutput></strong><br />
+					<br />
+					<cfloop array="#cfcatch.TagContext#" index="errorContexts">
+						<cfoutput>
+						<hr />
+						Column: #errorContexts.COLUMN#<br />
+						ID: #errorContexts.ID#<br />
+						Line: #errorContexts.LINE#<br />
+						Raw Trace: #errorContexts.RAW_TRACE#<br />
+						Template: #errorContexts.TEMPLATE#<br />
+						Type: #errorContexts.TYPE#<br />
+						<br />
+						</cfoutput>
+					</cfloop>
+				</div>
+				<cfabort>
 			</cfcatch>
 		</cftry>
 		<cfset variables.tracer.commitTracepoint(variables.tracepoint)>
